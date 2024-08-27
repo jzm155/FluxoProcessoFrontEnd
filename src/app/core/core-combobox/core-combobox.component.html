@@ -1,0 +1,22 @@
+<form [formGroup]="comboForm">
+  <div class="flex flex-col mb-5">
+    <label for="{{name}}" class="mb-3 block text-base font-medium text-gray-100">
+      {{text}}*
+    </label>
+    <select formControlName="{{name}}" name="{{name}}" id="{{name}}"
+            [class.invalid]="isRequired" [class.disabled]="isDisabled"
+            class="form-control
+          bg-white
+          w-full
+          rounded-md border border-emerald-800
+          py-3 px-6
+          text-base font-medium text-gray-500
+          outline-none
+          focus:border-[#064e3b] focus:shadow-md
+          invalid [&.invalid]:border-red-600
+          disabled [&.disabled]:bg-gray-400
+          disabled [&.disabled]:cursor-not-allowed">
+      <option *ngFor="let s of store" [ngValue]="s" [selected]="store.length == 1">{{s.descricao}}</option>
+    </select>
+  </div>
+  </form>

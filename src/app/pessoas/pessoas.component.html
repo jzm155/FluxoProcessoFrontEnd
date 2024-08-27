@@ -1,0 +1,124 @@
+<app-core-loadbox  *ngIf="estaCarregando" [estaCarregando]="estaCarregando" text="Processando..." class="fixed flex w-10/12 h-full">"></app-core-loadbox>
+<div (window:resize)="onResizeHandler($event)" class="h-full overflow-x-auto bg-gray-800">
+  <!-- Main content -->
+  <!-- This is an example component -->
+  <input [hidden]="true" type="text" [(ngModel)]="alturaPagina" />
+  <div class="mx-auto w-5/6 h-full  dark:border-emerald-800">
+    <div class="flex flex-col h-full shadow-md sm:rounded-lg">
+      <div class="py-4 dark:bg-gray-800 ">
+        <a href="#" routerLink="/cadastro-pessoas" routerLinkActive="active" class="nav-link">
+          <button class="bg-emerald-800 hover:bg-emerald-700 text-emerald-100 font-bold py-2 px-4 rounded inline-flex">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            <span class="px-1">Adicionar</span>
+          </button>
+        </a>
+        <a href="#" class="px-1">
+          <button class="bg-emerald-800 hover:bg-emerald-700 text-emerald-100 font-bold py-2 px-4 rounded inline-flex">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
+            </svg>
+            <span class="px-1">Filtrar</span>
+          </button>
+        </a>
+      </div>
+      <table class="grow w-full text-sm text-left text-emerald-100 dark:text-emerald-100 border dark:border-b-gray-800 dark:border-emerald-700">
+        <thead class="text-xs text-emerald-100 uppercase bg-gray-50 dark:bg-emerald-900 dark:text-emerald-100">
+          <tr>
+            <th *ngIf="false" scope="col" class="w-1/12 px-6 py-4">
+              Código
+            </th>
+            <th scope="col" class="w-3/12 px-6 py-4">
+              Nome
+            </th>
+            <th scope="col" class="w-1/12 px-6 py-4">
+              Cargo
+            </th>
+            <th scope="col" class="w-1/12 px-6 py-4">
+              Nivel
+            </th>
+            <th scope="col" class="w-2/12 px-6 py-4">
+              Data de admissão
+            </th>
+            <th scope="col" class="w-2/12 px-6 py-4">
+              Data de Demissão
+            </th>
+            <th scope="col" class="w-1/12 px-6 py-4">
+              <span class="sr-only">Edit</span>
+            </th>
+            <th scope="col" class="w-1/12 px-6 py-4">
+              <span class="sr-only">Delete</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody #target>
+          <tr *ngFor="let pessoa of pessoas" class="h-3 bg-white border-b dark:bg-gray-700 dark:border-emerald-700 hover:bg-emerald-700 dark:hover:bg-gray-500">
+            <th *ngIf="false" scope="row" class="h-12 w-3/9 px-6 py-4 font-medium text-gray-900 dark:text-emerald-100">
+              {{pessoa.id}}
+            </th>
+            <th scope="row" class="h-12 w-3/9 px-6 py-4 font-medium text-gray-900 dark:text-emerald-100">
+              {{pessoa.nome}}
+            </th>
+            <td class="h-12 w-1/9 px-6 py-4">
+              {{pessoa.cargo}}
+            </td>
+            <td class="h-12 w-1/9 px-6 py-4">
+              {{pessoa.nivel}}
+            </td>
+            <td class="h-12 w-1/9 px-6 py-4">
+              {{pessoa.dataAdmissaoFormatada}}
+            </td>
+            <td class="h-12 w-1/9 px-6 py-4">
+              {{pessoa.dataDemissaoFormatada}}
+            </td>
+            <td class="h-12 w-1/9 px-6 py-4 text-right">
+              <a href="#" routerLink="/cadastro-pessoas/{{pessoa.id}}" routerLinkActive="active" class="nav-link font-medium text-blue-600 dark:text-emerald-100 hover:underline">Edit</a>
+            </td>
+            <td class="h-12 w-1/9 px-6 py-4 text-right">
+              <a href="#" class="font-medium text-blue-600 dark:text-red-300 hover:underline">Delete</a>
+            </td>
+          </tr>
+          <tr class="bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-emerald-700">
+          </tr>
+        </tbody>
+      </table>
+      <nav class="w-full dark:bg-gray-800 border dark:border-emerald-700" aria-label="Page navigation example">
+        <ul class="inline-flex -space-x-px text-base h-10">
+          <li>
+            <button (click)="IrParaPrimeiraPagina()" [class.active]="ehPrimeiraPagina" [disabled]="ehPrimeiraPagina" class="active [&.active]:bg-neutral-600 flex items-center justify-center px-4 h-10 ms-0  text-emerald-100  dark:border-r-emerald-700 dark:bg-gray-800 dark:text-emerald-100 dark:hover:bg-gray-500">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
+              </svg>
+            </button>
+          </li>
+          <li>
+            <button (click)="IrParaPaginaAnterior()" [class.active]="ehPrimeiraPagina" [disabled]="ehPrimeiraPagina" class="active [&.active]:bg-neutral-600 flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white  hover:bg-gray-100 dark:bg-gray-800 dark:border-r-emerald-700 dark:text-emerald-100 dark:hover:bg-gray-500">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+              </svg>
+            </button>
+          </li>
+          <li>
+            <input [disabled]="true" type="text" name="paginaAtual" id="paginaAtual" [(ngModel)]="paginaAtual" style="text-align:center" class="flex items-center  w-14 px-4 h-10 ms-0 leading-tight text-gray-500 bg-white  hover:bg-gray-100 dark:bg-gray-800 dark:border-r-emerald-700 dark:text-emerald-100 dark:hover:bg-gray-500 " />
+          </li>
+          <li>
+            <button (click)="IrParaProximaPagina()" [class.active]="ehUltimaPagina" [disabled]="ehUltimaPagina" class="active [&.active]:bg-neutral-600 flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white  hover:bg-gray-100 dark:bg-gray-800 dark:border-r-emerald-700 dark:text-emerald-100 dark:hover:bg-gray-500 ">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+              </svg>
+
+            </button>
+          </li>
+          <li>
+            <button (click)="CarregarGrid()" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white  dark:bg-gray-800 dark:border-r-emerald-700 dark:text-emerald-100 dark:hover:bg-gray-500 ">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+              </svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
